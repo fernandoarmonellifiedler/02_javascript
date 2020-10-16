@@ -42,5 +42,185 @@ function propPrefix(str) {
 }
 
 var someProp = propPrefix("Name"); // someProp now holds the value 'propName'
-console.log(someObj[someProp]); // "John"
+someObj[someProp]; // "John"
 
+/* Add New Properties to a JavaScript Object */
+var ourDog = {
+    "name": "Camper",
+    "legs": 4,
+    "tails": 1,
+    "friends": ["everything!"]
+};
+
+ourDog.bark = "bow-wow";
+
+/* Delete Properties from a JavaScript Object */
+delete ourDog.bark;
+
+/* Testing Objects for Properties:
+- Sometimes it is useful to check if the property of a given object exists or not.
+- We can use the .hasOwnProperty(propname) method of objects to determine if that object has the given property name. .hasOwnProperty() returns true or false if the property is found or not. */
+var myObj = {
+    top: "hat",
+    bottom: "pants"
+}
+myObj.hasOwnProperty("top"); //true
+myObj.hasOwnProperty("middle"); //false
+
+/* Exercise: Modify the function checkObj to test if an object passed to the function (obj) contains a specific property (checkProp). If the property is found, return that property's value. If not, return "Not Found". */
+
+function checkObj(obj, checkProp) {
+    if (obj.hasOwnProperty(checkProp)) {
+        return obj[checkProp]
+    } else {
+        return "Not Found"
+    }
+}
+
+/* Manipulating Complex Objects:
+- This is an array which contains one object inside. The object has various pieces of metadata about an album. It also has a nested "formats" array.
+- Objects hold data in a property, which has a key-value format. - In the example above, "artist": "Daft Punk" is a property that has a key of "artist" and a value of "Daft Punk". JavaScript Object Notation or JSON is a related data interchange format used to store data. */
+
+var myMusic = [
+    {
+      "artist": "Billy Joel",
+      "title": "Piano Man",
+      "release_year": 1973,
+      "formats": [
+        "CD",
+        "8T",
+        "LP"
+      ],
+      "gold": true
+    },
+    /* Exercise: Add a new album to the myMusic array. Add artist and title strings, release_year number, and a formats array of strings. */
+    {
+      "artist": "Gorillaz",
+      "title": "Empire Ants",
+      "release_year": 2011,
+      "formats": [
+        "CD",
+        "8T",
+        "LP"
+      ]
+    }
+  ];
+  
+/* Accessing Nested Objects: The sub-properties of objects can be accessed by chaining together the dot or bracket notation.
+
+Exercise: Access the myStorage object and assign the contents of the glove box property to the gloveBoxContents variable. Use dot notation for all properties where possible, otherwise use bracket notation.*/
+var myStorage = {
+    "car": {
+      "inside": {
+        "glove box": "maps",
+        "passenger seat": "crumbs"
+       },
+      "outside": {
+        "trunk": "jack"
+      }
+    }
+  };
+  
+  var gloveBoxContents = myStorage.car.inside["glove box"]; // Change this line
+
+/* Accessing Nested Arrays: objects can contain both nested objects and nested arrays. Similar to accessing nested objects, Array bracket notation can be chained to access nested arrays. */
+var myPlants = [
+    {
+      type: "flowers",
+      list: [
+        "rose",
+        "tulip",
+        "dandelion"
+      ]
+    },
+    {
+      type: "trees",
+      list: [
+        "fir",
+        "pine",
+        "birch"
+      ]
+    }
+  ];
+  
+  var secondTree = myPlants[1].list[1]; // Change this line
+
+/* Record Collection Exercise:
+- You are given a JSON object representing a part of your musical album collection. Each album has a unique id number as its key and several other properties. Not all albums have complete information.
+
+- You start with an updateRecords function that takes an object like collection, an id, a prop (like artist or tracks), and a value. Complete the function using the rules below to modify the object passed to the function:
+
+1) Your function must always return the entire object. OK!
+2) If prop isn't tracks and value isn't an empty string, update or set that album's prop to value. OK!
+
+3) If prop is tracks but the album doesn't have a tracks property, create an empty array and add value to it. OK!
+4) If prop is tracks and value isn't an empty string, add value to the end of the album's existing tracks array. OK!
+
+5) If value is an empty string, delete the given prop property from the album. OK!
+*/
+
+var collection = {
+    2548: {
+      albumTitle: 'Slippery When Wet',
+      artist: 'Bon Jovi',
+      tracks: ['Let It Rock', 'You Give Love a Bad Name']
+    },
+    2468: {
+      albumTitle: '1999',
+      artist: 'Prince',
+      tracks: ['1999', 'Little Red Corvette']
+    },
+    1245: {
+      artist: 'Robert Palmer',
+      tracks: []
+    },
+    5439: {
+      albumTitle: 'ABBA Gold'
+    }
+  };
+  
+  // Only change code below this line
+function updateRecords(object, id, prop, value) {
+  
+  if (prop !== "tracks" && value !== "") {
+    object[id][prop] = value
+  } else if (object[id].hasOwnProperty("tracks") !== true) {
+      object[id][prop] = []
+      object[id][prop] = value
+    } else if (value !== "") {
+      object[id][prop].push(value)
+    } else {
+      delete object[id][prop]
+    }
+  
+    return object;
+}
+
+updateRecords(collection, 5439, "artist", "ABBA") // artist should be ABBA
+updateRecords(collection, 5439, "tracks", "Take a Chance on Me") // tracks should have Take a Chance on Me as the last element.
+updateRecords(collection, 2548, "artist", "") // artist should not be set
+updateRecords(collection, 1245, "tracks", "Addicted to Love")// tracks should have Addicted to Love as the last element.
+updateRecords(collection, 2468, "tracks", "Free")// tracks should have 1999 as the first element.
+updateRecords(collection, 2548, "tracks", "")// tracks should not be set
+updateRecords(collection, 1245, "albumTitle", "Riptide")// albumTitle should be Riptide
+console.log(collection)
+/* 
+function updateRecords(object, id, prop, value) {
+  if (prop !== "tracks" && value !== "") {
+    console.log("prop no es tracks y value no es string vacia")
+    object[id][prop] = value
+  } else if (object[id].hasOwnProperty("tracks") !== true) {
+      console.log("prop es tracks y el id no tiene prop tracks!")
+      object[id][prop] = []
+      object[id][prop] = value
+    } else if (value !== "") {
+      console.log("prop es tracks y value no es una string vacia")
+      object[id][prop].push(value)
+    } else {
+      console.log("value es string vacia!")
+      delete object[id][prop]
+    }
+  
+    return object;
+}
+*/
