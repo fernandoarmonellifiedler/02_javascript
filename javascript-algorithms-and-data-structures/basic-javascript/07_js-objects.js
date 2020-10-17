@@ -177,50 +177,68 @@ var collection = {
     5439: {
       albumTitle: 'ABBA Gold'
     }
-  };
+};
   
-  // Only change code below this line
+// Only change code below this line
 function updateRecords(object, id, prop, value) {
-  
-  if (prop !== "tracks" && value !== "") {
-    object[id][prop] = value
-  } else if (object[id].hasOwnProperty("tracks") !== true) {
-      object[id][prop] = []
-      object[id][prop] = value
-    } else if (value !== "") {
-      object[id][prop].push(value)
-    } else {
-      delete object[id][prop]
-    }
-  
-    return object;
+  if (value === '') {
+    delete object[id][prop];
+  } else if (prop === "tracks") {
+    object[id][prop] = object[id][prop] || [];
+    object[id][prop].push(value);
+  } else {
+    object[id][prop] = value;
+  }
+  return object;
 }
 
-updateRecords(collection, 5439, "artist", "ABBA") // artist should be ABBA
-updateRecords(collection, 5439, "tracks", "Take a Chance on Me") // tracks should have Take a Chance on Me as the last element.
-updateRecords(collection, 2548, "artist", "") // artist should not be set
-updateRecords(collection, 1245, "tracks", "Addicted to Love")// tracks should have Addicted to Love as the last element.
-updateRecords(collection, 2468, "tracks", "Free")// tracks should have 1999 as the first element.
-updateRecords(collection, 2548, "tracks", "")// tracks should not be set
-updateRecords(collection, 1245, "albumTitle", "Riptide")// albumTitle should be Riptide
-console.log(collection)
+
+console.log(updateRecords(collection, 2468, "tracks", "1997"));
+
+
 /* 
+RESPUESTA CORRECTA
 function updateRecords(object, id, prop, value) {
-  if (prop !== "tracks" && value !== "") {
-    console.log("prop no es tracks y value no es string vacia")
-    object[id][prop] = value
-  } else if (object[id].hasOwnProperty("tracks") !== true) {
-      console.log("prop es tracks y el id no tiene prop tracks!")
-      object[id][prop] = []
-      object[id][prop] = value
+  if (value === "") {
+    delete object[id][prop];
+  } else if (prop === "tracks") {
+    object[id][prop] = object[id][prop] || [];
+    object[id][prop].push(value);
+  } else {
+    object[id][prop] = value;
+  }
+  return object;
+}
+
+RESPUESTA INCOMPLETA
+function updateRecords(object, id, prop, value) {
+  if (value === "") {
+    delete object[id][prop];
+  } else if (prop === "tracks") {
+    if (object[id].hasOwnProperty("tracks") !== true) {
+      object[id][prop] = [];
+      object[id][prop] = value;
     } else if (value !== "") {
-      console.log("prop es tracks y value no es una string vacia")
-      object[id][prop].push(value)
+      object[id][prop].push(value);
     } else {
-      console.log("value es string vacia!")
-      delete object[id][prop]
+    object[id][prop] = value;
     }
-  
-    return object;
+  }
+  return object;
+}
+
+OTRA MAS
+function updateRecords(object, id, prop, value) {
+  if (prop !== 'tracks' && value !== '') {
+    object[id][prop] = value;
+  }
+  if (prop === 'tracks' && object[id].hasOwnProperty("tracks") === false) {
+    object[id][prop] = [];
+    object[id][prop] = value;
+  }
+  if (prop === 'tracks' && value !== '') {
+    object[id][prop].push(value);
+  }
+  return object;
 }
 */
