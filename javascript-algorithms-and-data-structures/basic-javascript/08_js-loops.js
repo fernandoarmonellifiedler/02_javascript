@@ -127,11 +127,29 @@ var contacts = [
   }
 ];
 
+function lookUpProfile(name, prop){
+  // Only change code below this line
+      for (let i = 0 ; i < contacts.length ; i++) {
+          if (contacts[i]["firstName"] === name && contacts[i].hasOwnProperty(prop)) {
+              return contacts[i][prop]
+          } else {
+              return "No such property"
+          }
+      } 
+      return "No such contact"
+    // Only change code above this line
+  }
+    
+  console.log(lookUpProfile("Akira", "likes"));
+  /* NOTAS:
+  - mis soluciones no estaban funcionando por estar colocando el return de name dentro del for. Entonces la funcion terminaba en el primer contacto. La solucion dejó ese return fuera del loop for ya que si no lo encuentra puede retornar "no such contac"
+  - luego, se aplicó una solución simplificada usando ||. quiere decir que una vez dentro del contacto vamos a retornar su prop y en el caso de no encontrarla, "no such property".
+  Sigue la solución incompleta:
 
+IF CONTACT EXIST
 function lookUpProfile(name, prop){
 // Only change code below this line
   for (let i = 0 ; i < contacts.length ; i++) {
-
     if (contacts[i]["firstName"] === name) {
       if (contacts[i].hasOwnProperty(prop)) {
         return contacts[i][prop]
@@ -140,26 +158,37 @@ function lookUpProfile(name, prop){
       }
     } else {
       return "No such contact"
-    } 
+    }
   }
 // Only change code above this line
 }
 
-
-//console.log(lookUpProfile("Akira", "likes"));
-console.log(lookUpProfile("Kristian", "lastName"));
-
-/* 
-for (let i = 0 ; i < contacts.length ; i++) {
-
+IF CONTACT DOESN´T EXIST
+function lookUpProfile(name, prop){
+// Only change code below this line
+  for (let i = 0 ; i < contacts.length ; i++) {
     if (contacts[i]["firstName"] !== name) {
       return "No such contact";
     } else if (!contacts[i].hasOwnProperty(prop)) {
-      return "No such property"
+        return "No such property";
     } else {
       return contacts[i][prop]
     }
   }
+// Only change code above this line
+}
 
-  console.log(contacts[i])
+UNA ULTIMA PRUEBA QUE NO FUNCIONO:
+function lookUpProfile(name, prop){
+  // Only change code below this line
+      for (let i = 0 ; i < contacts.length ; i++) {
+          if (contacts[i]["firstName"] === name && contacts[i].hasOwnProperty(prop)) {
+              return contacts[i][prop]
+          } else {
+              return "No such property"
+          }
+      } 
+      return "No such contact"
+    // Only change code above this line
+  }
 */
