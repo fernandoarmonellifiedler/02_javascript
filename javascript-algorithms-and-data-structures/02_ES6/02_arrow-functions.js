@@ -29,3 +29,30 @@ var magic = function() {
 
 const magic = () => new Date();
 
+/* Write Arrow Functions with Parameters:
+- Just like a regular function, you can pass arguments into an arrow function. */
+
+// doubles input value and returns it
+const doubler = (item) => item * 2;
+
+/*If an arrow function has a single argument, the parentheses enclosing the argument may be omitted.*/
+
+// the same function, without the argument parentheses
+const doubler2 = item => item * 2;
+
+/* It is possible to pass more than one argument into an arrow function. */
+
+// multiplies the first input value by the second and returns it
+const multiplier = (item, multi) => item * multi;
+
+
+/*Exercise: Rewrite the myConcat function which appends contents of arr2 to arr1 so that the function uses arrow function syntax:
+
+ var myConcat = function(arr1, arr2) {
+  "use strict";
+  return arr1.concat(arr2);
+}; */ 
+
+const myConcat = (arr1, arr2) => arr1.concat(arr2)
+
+
