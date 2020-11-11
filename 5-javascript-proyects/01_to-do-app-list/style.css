@@ -8,7 +8,7 @@ body {
     text-align: center;
 
     width: 40rem;
-    height: 20rem;
+    min-height: 20rem;
 
     padding: 2rem;
 
@@ -23,3 +23,21 @@ body {
     height: 8.5rem;
 }
 
+.div-list {
+    margin: 0 auto;
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.div-list-ol {
+    text-align: left;
+}
+
+.li-element {
+    font-size: 1.125rem;
+}
+
+.element-button:first-child {
+    margin-left: .5em;
+}
