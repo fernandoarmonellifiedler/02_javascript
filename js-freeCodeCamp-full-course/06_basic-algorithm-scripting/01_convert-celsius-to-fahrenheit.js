@@ -5,11 +5,11 @@ You are given a variable celsius representing a temperature in Celsius. Use the 
 */
 
 function convertToF(celsius) {
-    let fahrenheit;
-    return fahrenheit;
-  }
-  
-  convertToF(30);
+  let fahrenheit = celsius * (9 / 5) + 32;;
+  return fahrenheit;
+}
+
+convertToF(30);
 
 convertToF(0) //should return a number
 convertToF(-30) //should return a value of -22
