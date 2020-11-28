@@ -6,7 +6,6 @@ function findElement(arr, func) {
     for (let i in arr) {
         num = arr[i];
         if (func(num)) return arr[i];
-
     }
     return undefined
 }

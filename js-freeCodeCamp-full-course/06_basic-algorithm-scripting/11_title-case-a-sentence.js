@@ -5,13 +5,45 @@ For the purpose of this exercise, you should also capitalize connecting words li
 
 function titleCase(str) {
     let newStr = str.toLowerCase().split(' ');
-    console.log(newStr)
+    let upperCasedArr = [];
     for (let i in newStr) {
-        let firstLetter = newStr[i][0].toUpperCase();
-
+      let regex = /[^.]/
+      let fragStr = newStr[i].replace(regex,newStr[i][0].toUpperCase());
+      upperCasedArr.push(fragStr);
     }
-    console.log(newStr)
-    return newStr.join(' ');
+    
+    return upperCasedArr.join(' ');
+  }
+  
+  titleCase("I'm a little tea pot");
+  console.log(titleCase("I'm a little tea pot"));
+
+/* 
+function titleCase(str) {
+  let newStr = str.toLowerCase().split(' ');
+  console.log(newStr)
+  for (let i in newStr) {
+     newStr[i].charAt(0).toUpperCase();
+     console.log(newStr[i].charAt(0).toUpperCase())
+  }
+  console.log(newStr)
+  return newStr.join(' ');
 }
 
 titleCase("I'm a little tea pot");
+
+
+function titleCase(str) {
+  let newStr = str.toLowerCase().split(' ');
+  for (let i in newStr) {
+    let newStrSplitted = newStr[i].split('')
+    console.log(newStrSplitted)
+    let fragSplit =  newStrSplitted[0].toUpperCase();
+    console.log(fragSplit)
+    newStrSplitted.slice(0,1,fragSplit)
+    console.log(newStrSplitted)
+  }
+  
+  return newStr.join(' ');
+}
+*/

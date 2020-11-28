@@ -8,7 +8,11 @@ Begin inserting elements at index n of the second array.
 Return the resulting array. The input arrays should remain the same after the function runs. */
 
 function frankenSplice(arr1, arr2, n) {
-    return arr2;
-  }
-  
-  frankenSplice([1, 2, 3], [4, 5, 6], 1);
+  let arr3 = arr2.slice();
+
+  arr3.splice(n,0,...arr1);
+  return arr3;
+}
+
+frankenSplice([1, 2, 3], [4, 5, 6], 1);
+console.log(frankenSplice([1, 2, 3], [4, 5, 6], 1))
