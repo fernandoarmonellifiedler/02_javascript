@@ -96,7 +96,7 @@ console.log(dog.sayLegs())
 /* Make Code More Reusable with the this KeywordPassed
 The last challenge introduced a method to the duck object. It used duck.name dot notation to access the value for the name property within the return statement:*/
 
-sayName: function() {return "The name of this duck is " + duck.name + ".";}
+sayName: function() { return "The name of this duck is " + duck.name + "."; }
 
 /*
 While this is a valid way to access the object's property, there is a pitfall here. If the variable name changes, any code referencing the original name would need to be updated as well. In a short object definition, it isn't a problem, but if an object has many references to its properties there is a greater chance for error.
@@ -104,9 +104,9 @@ While this is a valid way to access the object's property, there is a pitfall he
 A way to avoid these issues is with the this keyword:*/
 
 let duck = {
-  name: "Aflac",
-  numLegs: 2,
-  sayName: function() {return "The name of this duck is " + this.name + ".";}
+    name: "Aflac",
+    numLegs: 2,
+    sayName: function () { return "The name of this duck is " + this.name + "."; }
 };
 
 /*
@@ -119,7 +119,7 @@ Exercise: Modify the dog.sayLegs method to remove any references to dog. Use the
 let dog = {
     name: "Spot",
     numLegs: 4,
-    sayLegs: function() {return "This dog has " + this.numLegs + " legs.";}
-  };
-  
-  dog.sayLegs();
+    sayLegs: function () { return "This dog has " + this.numLegs + " legs."; }
+};
+
+dog.sayLegs();

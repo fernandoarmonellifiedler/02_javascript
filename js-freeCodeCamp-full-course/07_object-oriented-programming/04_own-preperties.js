@@ -2,7 +2,7 @@
 In the following example, the Bird constructor defines two properties: name and numLegs:*/
 
 function Bird(name) {
-  this.name  = name;
+  this.name = name;
   this.numLegs = 2;
 }
 
@@ -14,7 +14,7 @@ let canary = new Bird("Tweety");
 let ownProps = [];
 
 for (let property in duck) {
-  if(duck.hasOwnProperty(property)) {
+  if (duck.hasOwnProperty(property)) {
     ownProps.push(property);
   }
 }
@@ -26,16 +26,16 @@ console.log(ownProps); // prints [ "name", "numLegs" ]
 // Exercise: Add the own properties of canary to the array ownProps.*/
 
 function Bird(name) {
-    this.name = name;
-    this.numLegs = 2;
+  this.name = name;
+  this.numLegs = 2;
+}
+
+let canary = new Bird("Tweety");
+let ownProps = [];
+// Only change code below this line
+
+for (let i in canary) {
+  if (canary.hasOwnProperty(i)) {
+    ownProps.push(i);
   }
-  
-  let canary = new Bird("Tweety");
-  let ownProps = [];
-  // Only change code below this line
-  
-  for (let i in canary) {
-    if (canary.hasOwnProperty(i)) {
-      ownProps.push(i);
-    }
-  }
+}

@@ -1,5 +1,4 @@
-/* 
-Introduction to the Object Oriented Programming Challenges
+/* Introduction to the Object Oriented Programming Challenges
 
 At its core, software development solves a problem or achieves a result with computation. The software development process first defines a problem, then presents a solution. Object oriented programming is one of several major approaches to the software development process.
 
