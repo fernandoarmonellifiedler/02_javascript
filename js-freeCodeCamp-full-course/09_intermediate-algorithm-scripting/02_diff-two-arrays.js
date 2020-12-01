@@ -38,3 +38,59 @@ function diffArray(arr1, arr2) {
 }
 
 diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+
+/* solution using filter method
+
+function diffArray(arr1, arr2) {
+  var newArr = [...arr1, ...arr2]
+    .sort((a,b) => a - b)
+    .filter((value, index, self) => {
+  return self.indexOf(value) === index;
+})
+    
+  var newArr2 = [];
+  
+
+
+  return newArr;
+}
+
+diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+console.log(diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]))
+
+-----------------------------------
+another filter solution
+
+function diffArray(arr1, arr2) {
+  return arr1
+    .concat(arr2)
+    .filter(item => !arr1.includes(item) || !arr2.includes(item));
+}
+
+diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+
+
+-----------------------------------
+
+Solution using two for loops:
+
+function diffArray(arr1, arr2) {
+  var newArr = [];
+  
+  for (let i = 0 ; i < arr1.length ; i++) {
+    if (arr2.indexOf(arr1[i]) === -1) {
+      newArr.push(arr1[i])
+    }
+  }
+
+  for (let i = 0 ; i < arr2.length ; i++) {
+    if (arr1.indexOf(arr2[i]) === -1) {
+      newArr.push(arr2[i])
+    }
+  }
+
+  return newArr;
+}
+
+diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+*/
