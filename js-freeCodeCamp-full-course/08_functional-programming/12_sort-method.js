@@ -1,0 +1,56 @@
+/* Sort an Array Alphabetically using the sort Method
+
+The sort method sorts the elements of an array according to the callback function.
+
+For example: */
+
+function ascendingOrder(arr) {
+    return arr.sort(function (a, b) {
+        return a - b;
+    });
+}
+ascendingOrder([1, 5, 2, 3, 4]);
+// Returns [1, 2, 3, 4, 5]
+
+function reverseAlpha(arr) {
+    return arr.sort(function (a, b) {
+        return a === b ? 0 : a < b ? 1 : -1;
+    });
+}
+reverseAlpha(['l', 'h', 'z', 'b', 's']);
+// Returns ['z', 's', 'l', 'h', 'b']
+
+/* JavaScript's default sorting method is by string Unicode point value, which may return unexpected results. Therefore, it is encouraged to provide a callback function to specify how to sort the array items. When such a callback function, normally called compareFunction, is supplied, the array elements are sorted according to the return value of the compareFunction: If compareFunction(a,b) returns a value less than 0 for two elements a and b, then a will come before b. If compareFunction(a,b) returns a value greater than 0 for two elements a and b, then b will come before a. If compareFunction(a,b) returns a value equal to 0 for two elements a and b, then a and b will remain unchanged.
+
+----------------------------------
+
+Exercise: Use the sort method in the alphabeticalOrder function to sort the elements of arr in alphabetical order. */
+
+function alphabeticalOrder(arr) {
+    // Only change code below this line
+    return arr.sort((a, b) => {
+        return a === b ? 0 : a < b ? -1 : 1;
+    })
+    // Only change code above this line
+}
+alphabeticalOrder(["a", "d", "c", "a", "z", "g"]);
+
+
+// ========================================
+
+/* Return a Sorted Array Without Changing the Original Array
+
+A side effect of the sort method is that it changes the order of the elements in the original array. In other words, it mutates the array in place. One way to avoid this is to first concatenate an empty array to the one being sorted (remember that slice and concat return a new array), then run the sort method.
+
+----------------------------------
+
+Exercise: Use the sort method in the nonMutatingSort function to sort the elements of an array in ascending order. The function should return a new array, and not mutate the globalArray variable.*/
+
+var globalArray = [5, 6, 3, 2, 9];
+function nonMutatingSort(arr) {
+    // Only change code below this line
+    let newArr = [];
+    return newArr.concat(arr).sort((a, b) => a - b);
+    // Only change code above this line
+}
+nonMutatingSort(globalArray);
