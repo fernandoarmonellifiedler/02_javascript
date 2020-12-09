@@ -8,8 +8,11 @@ dice on the screen the dice is expected to show one of the faces randomly.
 event listeners, Math.random()
 
 */
-
 // Write your code here 👇
+
+let dice = document.getElementsByClassName('dice');
+let dot = document.getElementsByClassName('dot');
+
 
 
 /*
