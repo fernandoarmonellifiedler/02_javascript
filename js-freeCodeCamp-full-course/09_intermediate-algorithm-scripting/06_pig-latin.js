@@ -12,3 +12,6 @@ function translatePigLatin(str) {
 }
 
 translatePigLatin("consonant");
+
+
+// INCOMPLETE SOLUTION
