@@ -8,10 +8,21 @@ Pig Latin is a way of altering English Words. The rules are as follows:
 Translate the provided string to Pig Latin. Input strings are guaranteed to be English words in all lowercase. */
 
 function translatePigLatin(str) {
-    return str;
+    let rgxVowel = /^[aieou]/i;
+    let rgxConsonant = /^[^aieou]+/i;
+
+    if (str.match(rgxVowel)) {
+        // add "way" at the end
+        console.log("Its a vowel");
+        return str + "way";
+    }
+    if (str.match(rgxConsonant)) {
+        // move consonant to end of the word and add "ay"
+        console.log("Its a consonant");
+        let splicedLetter = str.match(rgxConsonant);// gl
+        return str.split('').splice(splicedLetter[0].length).join('') + splicedLetter + "ay";
+    }
 }
 
-translatePigLatin("consonant");
-
-
-// INCOMPLETE SOLUTION
+console.log(translatePigLatin("glove"));
+console.log(translatePigLatin("algorithm"));
