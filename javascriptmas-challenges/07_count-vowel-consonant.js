@@ -26,4 +26,12 @@ function countVowelConsonant(str) {
         };
     }, 1);
 }
+
+const result = letters.reduce((totalSum, letter) => {
+    if (vowel.includes(letter)) {
+    return totalSum += 1
+} else {
+    return totalSum += 2
+}
+})
 */

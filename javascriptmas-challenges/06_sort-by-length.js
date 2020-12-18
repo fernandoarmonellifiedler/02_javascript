@@ -17,3 +17,13 @@ function sortByLength(strs) {
 
 const strs = ["abc", "", "aaa", "a", "zz"];
 console.log(sortByLength(strs));
+
+/* solution from scrimba live session
+
+function sortByLength(strs) {
+    return strs.sort((first, second) => {
+    return first.length - second.length
+})
+}
+
+*/
