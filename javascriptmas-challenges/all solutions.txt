@@ -21,7 +21,7 @@ https://scrimba.com/learn/adventcalendar/note-at-0-38-cobd2456da2d5017e1f586ab4
 7. Count vowel consonant:
 https://scrimba.com/learn/adventcalendar/note-at-1-21-coce540049f8ca7b515ccbd22
 
-8. Rolling dice:
+8. Rolling dice: On process
 
 9. Sum odd Fibonacci numbers:
 https://scrimba.com/scrim/co88d4507af466a0d8fef8809
@@ -41,7 +41,7 @@ https://scrimba.com/scrim/co28e4af6b6f6461ee090bc6f
 14. Maximal adjacent difference:
 https://scrimba.com/scrim/coaf24aa0988a7541c3b4fbbd
 
-15. Carousel:
+15. Carousel: Not ready
 
 16. Insert dashes:
 https://scrimba.com/scrim/co49b4716afe8f42d413d7e3a
@@ -55,12 +55,14 @@ https://scrimba.com/scrim/coe414a288ab4c7f820b931ed
 19. Alphabet subsequence:
 https://scrimba.com/scrim/coafb438894cbcdfb6f500691
 
-20. 
+20. Domain type:
+https://scrimba.com/scrim/co55e4ae48a1845591d5c3481
 
-21. 
+21. Sum of two:
+https://scrimba.com/scrim/co6544c69809d5daa410ff92a
 
-22. 
+22. Sooner
 
-23. 
+23. Not Yet
 
-24. 
+24. Coming soon
