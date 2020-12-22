@@ -61,8 +61,11 @@ https://scrimba.com/scrim/co55e4ae48a1845591d5c3481
 21. Sum of two:
 https://scrimba.com/scrim/co6544c69809d5daa410ff92a
 
-22. Sooner
+22. Extract matrix column:
+https://scrimba.com/scrim/co55240929a832c1abafcef34
 
 23. Not Yet
 
+
 24. Coming soon
+
