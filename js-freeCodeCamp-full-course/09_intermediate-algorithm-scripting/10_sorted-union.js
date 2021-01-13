@@ -7,8 +7,16 @@ The unique numbers should be sorted by their original order, but the final array
 
 Check the assertion tests for examples.*/
 
-function uniteUnique(arr) {
-    return arr;
+function uniteUnique(...arr) {
+    let newArr = [...arr];
+    let concatArr = [];
+
+    for (let i in newArr) {
+        concatArr.push(...newArr[i]);
+    }
+
+    return concatArr
+        .filter((item, index) => concatArr.indexOf(item) === index);
 }
 
 uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
@@ -17,3 +25,23 @@ uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]) //should return [1, 3, 2, 5, 4].
 uniteUnique([1, 2, 3], [5, 2, 1]) //should return [1, 2, 3, 5].
 uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8]) //should return [1, 2, 3, 5, 4, 6, 7, 8].
+
+
+/* Solution from FCC using for loops
+
+function uniteUnique(arr) {
+  var args = [...arguments];
+  var result = [];
+  for (var i = 0; i < args.length; i++) {
+    for (var j = 0; j < args[i].length; j++) {
+      if (!result.includes(args[i][j])) {
+        result.push(args[i][j]);
+      }
+    }
+  }
+  return result;
+}
+
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+
+*/
