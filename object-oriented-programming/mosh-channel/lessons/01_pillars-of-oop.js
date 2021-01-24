@@ -74,6 +74,4 @@ switch(x) {
 
 // On the OOP, we can impolement a render() in each of these objects and the render() method will behave differently depending of the type of the object they are referencing. It will look like this:
 
-element.render();
-
-/* 
+element.render(); 
