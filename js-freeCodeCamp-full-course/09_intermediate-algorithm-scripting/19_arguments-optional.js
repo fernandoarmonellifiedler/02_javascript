@@ -12,12 +12,39 @@ sumTwoAnd(3) returns 5.
 
 If either argument isn't a valid number, return undefined.*/
 
-function addTogether() {
-    return false;
+function addTogether(...args) {
+
+    var isNumber = function (x) {
+        if (typeof x !== "number") {
+            return undefined;
+        } else return x;
+    }
+
+    if (args.length > 1) {
+        let num1 = isNumber(args[0]);
+        let num2 = isNumber(args[1]);
+
+        if (num1 === undefined || num2 === undefined) {
+            return undefined;
+        } else return num1 + num2;
+    }
+
+    else {
+        let num3 = isNumber(args[0]);
+
+        if (isNumber(args[0])) {
+            return function (arg2) {
+                if (num3 === undefined || isNumber(arg2) === undefined) {
+                    return undefined;
+                } else {
+                    return num3 + arg2
+                }
+            }
+        }
+    }
 }
 
 addTogether(2, 3);
-
 
 
 addTogether(2, 3) //should return 5.
