@@ -9,11 +9,9 @@ Exercise: We have defined a function named squareList. You need to complete the 
 Note: Your function should not use any kind of for or while loops or the forEach() function.*/
 
 const squareList = arr => {
-    // Only change code below this line
     return arr
         .filter(nums => nums > 0 && nums % parseInt(nums) === 0)
         .map(nums => nums * nums);
-    // Only change code above this line
 };
 
 const squaredIntegers = squareList([-3, 4.8, 5, 3, -3.2]);
