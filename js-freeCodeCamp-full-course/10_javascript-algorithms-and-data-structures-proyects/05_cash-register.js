@@ -39,7 +39,7 @@ See below for an example of a cash-in-drawer array:
 ]
 */
 function checkCashRegister(price, cash, cid) {
-  const currencyList = [
+  let currencyList = [
     { name: 'PENNY', value: 0.01 },
     { name: 'NICKEL', value: 0.05 },
     { name: 'DIME', value: 0.1 },
@@ -49,47 +49,112 @@ function checkCashRegister(price, cash, cid) {
     { name: 'TEN', value: 10 },
     { name: 'TWENTY', value: 20 },
     { name: 'ONE HUNDRED', value: 100 },
+    { name: 'MORE', value: 99999 },
   ];
-  // convierte lista en objeto
-  const cashInDrawer = cid.map((item) => {
-    return { name: item[0], value: item[1] };
+  // convierte lista en array
+  let arrConverted = cid.map((item) => {
+    return [item[0], item[1]];
   });
-  // total en caja
-  const cashTotal = cashInDrawer
-    .reduce((total, item) => total + item.value, 0)
-    .toFixed(2); // 335.41
-  // cambio
-  const cambio = cash - price; // 0.5
-  // cash-in-drawer is less than the change due
-  if (cashTotal < cambio) {
-    return { status: 'INSUFFICIENT_FUNDS', change: [] };
-  }
-
-  // find lower currency
-  let lowerCurrency = ''; // QUARTER
-  for (let i = 0; i < currencyList.length; i++) {
-    if (cambio > currencyList[i].value && cambio < currencyList[i + 1].value) {
-      lowerCurrency = currencyList[i].name.toUpperCase();
+  // funcion => total en caja
+  const cashInDrawer = (arr) =>
+    arr.reduce((total, item) => total + item[1], 0).toFixed(2);
+  // funcion => find lower currency
+  const findLowerCurrency = (arr, cambioNum) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (cambioNum > arr[i].value && cambioNum < arr[i + 1].value) {
+        return arr[i].name.toUpperCase();
+      }
     }
-  }
-  // check amount of lower currency // [ 4.25 ]
-  let amount = cashInDrawer
-    .filter((item) => item.name === lowerCurrency)
-    .map((item) => item.value);
+  };
+  // funcion => amount of lower currency
+  const amountOfCurrency = (arr, currency) =>
+    arr.filter((item) => item[0] === currency).map((item) => item[1]);
+  // funcion => cantidad de billetes de lower currency
+  const amountOfBills = (billValue, total) => {
+    let maxValue = 0;
+    while (maxValue <= total && (maxValue + billValue) < total) {
+        maxValue += billValue
+    }
+    return maxValue;
+  };
+  // funcion => valor del billete
+  const billValue = (billName) => currencyList.filter(item => item.name === billName).map(item => item.value)
 
-  if (amount > cambio) {
-    return { status: 'OPEN', change: [[lowerCurrency, cambio]] };
+  // =======================
+  // App
+  // =======================
+  let status = '';
+  let change = [];
+  let lowerCurrency = '';
+  let amountLowerCurr = 0;
+
+  // total en caja
+  let cashTotal = cashInDrawer(arrConverted);
+  // cambio
+  let cambio = cash - price; // 96.74
+  // console.log(cashTotal, cambio);
+
+  // check if cash-in-drawer is less than the change due
+  if (cashTotal < cambio) {
+    // status = 'INSUFFICIENT_FUNDS';
+    // change = change;
+    return { status: 'INSUFFICIENT_FUNDS', change: change };
   }
+  
+  // find lower currency
+  lowerCurrency = findLowerCurrency(currencyList, cambio);
+  // check amount of lower currency // [ 60 ]
+  amountLowerCurr = amountOfCurrency(arrConverted, lowerCurrency);
+  // console.log(...amountLowerCurr, cambio);
+  if (amountLowerCurr > cambio) {
+    status = 'OPEN';
+    let currBillValue = billValue(lowerCurrency)
+    let maxValueOnCurrency = amountOfBills(...currBillValue, cambio);
+    change.push([lowerCurrency, maxValueOnCurrency]);
+    //-----------
+    let restOfCurr = amountLowerCurr - maxValueOnCurrency;
+    
+    let newArr = arrConverted.map(item => item[0] === lowerCurrency ? [lowerCurrency, item[1] = restOfCurr] : item )
+    arrConverted = newArr;
+    console.log(arrConverted);
+  }
+  // console.log(change);
+  // else if (amountLowerCurr < cambio) {
+  //   change = change.push([lowerCurrency, ...amountLowerCurr]);
+  //   let newArr = arrConverted.filter((item) => item[0] !== lowerCurrency);
+  //   arrConverted = newArr;
+  //   let newCurrencyList = currencyList.filter(
+  //     (item) => item.name !== lowerCurrency
+  //   );
+  //   currencyList = newCurrencyList;
+  //   cambio = (cambio - amountLowerCurr).toFixed(2);
+  // }
+
+  return { status: status, change: change };
 }
 
-checkCashRegister(19.5, 20, [
-  ['PENNY', 1.01],
-  ['NICKEL', 2.05],
-  ['DIME', 3.1],
-  ['QUARTER', 4.25],
-  ['ONE', 90],
-  ['FIVE', 55],
-  ['TEN', 20],
-  ['TWENTY', 60],
-  ['ONE HUNDRED', 100],
-]);
+console.log(
+  checkCashRegister(3.26, 100, [
+    ['PENNY', 1.01],
+    ['NICKEL', 2.05],
+    ['DIME', 3.1],
+    ['QUARTER', 4.25],
+    ['ONE', 90],
+    ['FIVE', 55],
+    ['TEN', 20],
+    ['TWENTY', 100],
+    ['ONE HUNDRED', 100],
+  ])
+);
+
+// checkCashRegister(19.5, 20, [
+//   ['PENNY', 1.01],
+//   ['NICKEL', 2.05],
+//   ['DIME', 3.1],
+//   ['QUARTER', 4.25],
+//   ['ONE', 90],
+//   ['FIVE', 55],
+//   ['TEN', 20],
+//   ['TWENTY', 60],
+//   ['ONE HUNDRED', 100],
+// ]);
