@@ -38,10 +38,58 @@ See below for an example of a cash-in-drawer array:
     ["ONE HUNDRED", 100]
 ]
 */
-
 function checkCashRegister(price, cash, cid) {
-    var change;
-    return change;
+  const currencyList = [
+    { name: 'PENNY', value: 0.01 },
+    { name: 'NICKEL', value: 0.05 },
+    { name: 'DIME', value: 0.1 },
+    { name: 'QUARTER', value: 0.25 },
+    { name: 'ONE', value: 1 },
+    { name: 'FIVE', value: 5 },
+    { name: 'TEN', value: 10 },
+    { name: 'TWENTY', value: 20 },
+    { name: 'ONE HUNDRED', value: 100 },
+  ];
+  // convierte lista en objeto
+  const cashInDrawer = cid.map((item) => {
+    return { name: item[0], value: item[1] };
+  });
+  // total en caja
+  const cashTotal = cashInDrawer
+    .reduce((total, item) => total + item.value, 0)
+    .toFixed(2); // 335.41
+  // cambio
+  const cambio = cash - price; // 0.5
+  // cash-in-drawer is less than the change due
+  if (cashTotal < cambio) {
+    return { status: 'INSUFFICIENT_FUNDS', change: [] };
+  }
+
+  // find lower currency
+  let lowerCurrency = ''; // QUARTER
+  for (let i = 0; i < currencyList.length; i++) {
+    if (cambio > currencyList[i].value && cambio < currencyList[i + 1].value) {
+      lowerCurrency = currencyList[i].name.toUpperCase();
+    }
+  }
+  // check amount of lower currency // [ 4.25 ]
+  let amount = cashInDrawer
+    .filter((item) => item.name === lowerCurrency)
+    .map((item) => item.value);
+
+  if (amount > cambio) {
+    return { status: 'OPEN', change: [[lowerCurrency, cambio]] };
+  }
 }
 
-checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+checkCashRegister(19.5, 20, [
+  ['PENNY', 1.01],
+  ['NICKEL', 2.05],
+  ['DIME', 3.1],
+  ['QUARTER', 4.25],
+  ['ONE', 90],
+  ['FIVE', 55],
+  ['TEN', 20],
+  ['TWENTY', 60],
+  ['ONE HUNDRED', 100],
+]);
