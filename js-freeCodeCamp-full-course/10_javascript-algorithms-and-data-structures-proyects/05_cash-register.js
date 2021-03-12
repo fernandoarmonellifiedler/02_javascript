@@ -52,9 +52,11 @@ let currencyList = [
 
 function checkCashRegister(price, cash, cid) {
   // convierte lista en array
-  let arrConverted = cid.map((item) => {
-    return [item[0], item[1]];
-  }).reverse();
+  let arrConverted = cid
+    .map((item) => {
+      return [item[0], item[1]];
+    })
+    .reverse();
 
   // =======================
   // Funciones
@@ -94,7 +96,7 @@ function checkCashRegister(price, cash, cid) {
   let change = [];
 
   // total en caja y cambio a dar
-  let cashTotal = cashInDrawer(arrConverted); 
+  let cashTotal = cashInDrawer(arrConverted);
   let cambio = cash - price; // 96.74
 
   // ===== Despejar lo más sencillo ======
@@ -107,24 +109,24 @@ function checkCashRegister(price, cash, cid) {
     return { status: 'CLOSED', change: arrConverted };
   }
   // ===== (cashTotal > cambio) =====
-    let lowerCurrency = findLowerCurrency(currencyList, cambio);
-    let amountLowerCurr = amountOfCurrency(arrConverted, lowerCurrency);
-  
-    if (amountLowerCurr > cambio) {
-      let currBillValue = billValue(lowerCurrency);
-      let maxValueOnCurrency = amountOfBills(...currBillValue, cambio);
-      let restOfCurr = amountLowerCurr - maxValueOnCurrency;
-      status = 'OPEN';
-      // add item to change
-      change.push([lowerCurrency, maxValueOnCurrency]);
-      // alter array
-      let newArr = arrConverted.map((item) =>
-        item[0] === lowerCurrency ? [lowerCurrency, (item[1] = restOfCurr)] : item
-      );
-      arrConverted = newArr;
-      // update cambio
-      cambio = (cambio - maxValueOnCurrency).toFixed(2);
-    }
+  let lowerCurrency = findLowerCurrency(currencyList, cambio);
+  let amountLowerCurr = amountOfCurrency(arrConverted, lowerCurrency);
+
+  if (amountLowerCurr > cambio) {
+    let currBillValue = billValue(lowerCurrency);
+    let maxValueOnCurrency = amountOfBills(...currBillValue, cambio);
+    let restOfCurr = amountLowerCurr - maxValueOnCurrency;
+    status = 'OPEN';
+    // add item to change
+    change.push([lowerCurrency, maxValueOnCurrency]);
+    // alter array
+    let newArr = arrConverted.map((item) =>
+      item[0] === lowerCurrency ? [lowerCurrency, (item[1] = restOfCurr)] : item
+    );
+    arrConverted = newArr;
+    // update cambio
+    cambio = (cambio - maxValueOnCurrency).toFixed(2);
+  }
 
   return { status: status, change: change };
 }
@@ -167,3 +169,86 @@ console.log(
 //   { name: 'ONE HUNDRED', value: 100 },
 //   { name: 'MORE', value: 99999 },
 // ];
+
+// respuesta con guía de hints
+let currencyList = [
+  { name: 'ONE HUNDRED', value: 100.0 },
+  { name: 'TWENTY', value: 20.0 },
+  { name: 'TEN', value: 10.0 },
+  { name: 'FIVE', value: 5.0 },
+  { name: 'ONE', value: 1.0 },
+  { name: 'QUARTER', value: 0.25 },
+  { name: 'DIME', value: 0.1 },
+  { name: 'NICKEL', value: 0.05 },
+  { name: 'PENNY', value: 0.01 },
+];
+
+function checkCashRegister(price, cash, cid) {
+  let respuesta = { status: null, change: [] };
+  let cambio = cash - price;
+
+  // convertir array en objeto
+  let arrConverted = cid.reduce(
+    (acumulador, item) => {
+      acumulador.total += item[1];
+      acumulador[item[0]] = item[1];
+      return acumulador;
+    },
+    { total: 0 }
+  );
+  // check si valor en caja === cambio
+  if (arrConverted.total === cambio) {
+    respuesta.status = 'CLOSED';
+    respuesta.change = cid;
+    return respuesta;
+  }
+  // check si valor en caja < cambio
+  if (arrConverted.total < cambio) {
+    respuesta.status = 'INSUFFICIENT_FUNDS';
+    return respuesta;
+  }
+
+  // Loop currencyList
+  let loopArray = currencyList.reduce((acumulador, item) => {
+    let value = 0;
+    // Mientras haya dinero de esa moneda
+    // y el cambio sea mayor o igual al valor de la misma
+    while (arrConverted[item.name] > 0 && cambio >= item.value) {
+      cambio -= item.value;
+      arrConverted[item.name] -= item.value;
+      value += item.value;
+
+      cambio = Math.round(cambio * 100) / 100;
+    }
+    // agregar elemento a la lista si el valor cambió
+    if (value > 0) {
+      acumulador.push([item.name, value]);
+    }
+
+    return acumulador;
+  }, []);
+
+  // check si loopArray es un empty array
+  if (loopArray.length < 1 || cambio > 0) {
+    respuesta.status = 'INSUFFICIENT_FUNDS';
+    return respuesta;
+  }
+
+  // resultado
+  respuesta.status = 'OPEN';
+  respuesta.change = loopArray;
+  return respuesta;
+}
+
+// test here
+checkCashRegister(19.5, 20.0, [
+  ['PENNY', 1.01],
+  ['NICKEL', 2.05],
+  ['DIME', 3.1],
+  ['QUARTER', 4.25],
+  ['ONE', 90.0],
+  ['FIVE', 55.0],
+  ['TEN', 20.0],
+  ['TWENTY', 60.0],
+  ['ONE HUNDRED', 100.0],
+]);
