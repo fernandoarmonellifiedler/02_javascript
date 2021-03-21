@@ -37,17 +37,22 @@ function sockMerchant(n, ar) {
     if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el);
     return acc;
   }, []);
-  let count = 0;
-  duplicates.map((item) => {
-    ar.filter((itemArr) => {
-      if (itemArr === item) count += 1;
-    });
-  });
-  let result = Math.floor(count / 2);
 
-  return result;
+  let pairsCount = 0;
+  duplicates.map((item) => {
+    let socketsCount = [];
+    ar.filter((itemArr) => {
+      if (itemArr === item) {
+        socketsCount.push(item);
+      }
+    });
+    pairsCount += Math.floor(socketsCount.length / 2);
+  });
+
+  return pairsCount;
 }
 
-sockMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]);
-console.log(sockMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]));
-console.log(sockMerchant(10, [1, 1, 3, 1, 2, 1, 3, 3, 3, 3]));
+console.log(sockMerchant(15, [6, 5, 2, 3, 5, 2, 2, 1, 1, 5, 1, 3, 3, 3, 5]));
+// sockMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]);
+// console.log(sockMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]));
+// console.log(sockMerchant(10, [1, 1, 3, 1, 2, 1, 3, 3, 3, 3]));
