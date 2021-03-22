@@ -82,65 +82,53 @@ The hourglass with the maximum sum (19) is:
 1 2 4 */
 
 function hourglassSum(arr) {
-  let hourglass = [];
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      // console.log(arr[i][j]);
-      if (i === 1 ) {
-        console.log(arr[i][j]);
-        console.log('excepcion');
-        hourglass.push(arr[i][1])
-        i++
-        j--;
-      } else {
-        console.log(arr[i][j]);
-        if (i === 2 ) {
-          console.log('fila 2');
-          hourglass.push(arr[i][1])
+  let bigSum = 0;
+  function createHourglass(array, x, y) {
+    let hourglass = [];
+    for (let i = x; i < x + 3; i++) {
+      for (let j = y; j < y + 3; j++) {
+        if (i === x + 1) {
+          hourglass.push(array[i][y + 1]);
+          i++;
+          j--;
+        } else {
+          hourglass.push(array[i][j]);
         }
-        else {
-          console.log('normal');
-          hourglass.push(arr[i][j]);
-        }
-        
+      }
+    }
+    return hourglass.reduce((acc, item) => acc + item, 0);
+  }
+  bigSum = createHourglass(arr, 0, 0);
+
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      console.log(createHourglass(arr, i, j) > bigSum);
+      if (createHourglass(arr, i, j) > bigSum) {
+        bigSum = createHourglass(arr, i, j);
       }
     }
   }
-  console.log(hourglass);
-  // console.log(createHourglass(arr, 1, 0));
+  return bigSum;
 }
 
 console.log(
   hourglassSum([
-    [1, 1, 1, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0],
-    [1, 1, 1, 0, 0, 0],
-    [0, 0, 2, 4, 4, 0],
-    [0, 0, 0, 2, 0, 0],
-    [0, 0, 1, 2, 4, 0],
+    [-1, -1, 0, -9, -2, -2],
+    [-2, -1, -6, -8, -2, -5],
+    [-1, -1, -1, -2, -3, -4],
+    [-1, -9, -2, -4, -4, -5],
+    [-7, -3, -3, -2, -9, -9],
+    [-1, -3, -1, -2, -4, -5],
   ])
 );
 
-/* 
-function createHourglass(array, x, y) {
-    let hourglass = [];
-  
-    for (let i = x; i < x + 3; i++) {
-      // console.log('nivel i:' , i);
-      
-      for (let j = y; j < j + 3; j++) {
-        // console.log('nivel j:' , i);
-        console.log(array[i][j]);
-        // hourglass.push(array[i][j]);
-        // if (i === x + 1) {
-        //   hourglass.push(array[i][j + 1]);
-        // } else {
-        //   hourglass.push(array[i][j]);
-        // }
-      }
-    }
-    console.log(hourglass)
-    return hourglass;
-  }
-
-*/
+// console.log(
+//   hourglassSum([
+//     [1, 1, 1, 0, 0, 0],
+//     [0, 1, 0, 0, 0, 0],
+//     [1, 1, 1, 0, 0, 0],
+//     [0, 0, 2, 4, 4, 0],
+//     [0, 0, 0, 2, 0, 0],
+//     [0, 0, 1, 2, 4, 0],
+//   ])
+// );
